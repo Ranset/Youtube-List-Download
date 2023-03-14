@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainaqjNNh.ui'
+## Form generated from reading UI file 'mainAWLUtj.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -141,6 +141,11 @@ class Ui_MainWindow(object):
 "color: rgb(161, 173, 199);\n"
 "border-radius: 6px;\n"
 "border: 5px solid  rgb(51, 58, 77);\n"
+"}\n"
+"\n"
+"QPushButton:disabled{\n"
+"	background-color: rgb(206, 206, 206);\n"
+"	border: 5px solid  rgb(206, 206, 206);\n"
 "}")
         self.frmControls.setFrameShape(QFrame.StyledPanel)
         self.frmControls.setFrameShadow(QFrame.Raised)

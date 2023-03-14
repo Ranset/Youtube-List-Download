@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'dlgDownloadVideorKqrdm.ui'
+## Form generated from reading UI file 'dlgDownloadVideoevcuUk.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -230,12 +230,12 @@ class Ui_frmDownVideo(object):
 #if QT_CONFIG(whatsthis)
         self.btnGet.setWhatsThis(QCoreApplication.translate("frmDownVideo", u"Presione para comenzar a buscar el video a descargar.", None))
 #endif // QT_CONFIG(whatsthis)
-        self.lblVideoName.setText(QCoreApplication.translate("frmDownVideo", u"Nombre del video", None))
+        self.lblVideoName.setText("")
         self.label_2.setText(QCoreApplication.translate("frmDownVideo", u"Duraci\u00f3n:", None))
-        self.label_5.setText(QCoreApplication.translate("frmDownVideo", u"00:00:00", None))
+        self.label_5.setText("")
         self.label_3.setText(QCoreApplication.translate("frmDownVideo", u"Tama\u00f1o:", None))
-        self.label_6.setText(QCoreApplication.translate("frmDownVideo", u"33MB", None))
-        self.label_7.setText(QCoreApplication.translate("frmDownVideo", u"c:/Download", None))
+        self.label_6.setText("")
+        self.label_7.setText("")
         self.label_4.setText(QCoreApplication.translate("frmDownVideo", u"Path:", None))
         self.btnAgregar.setText(QCoreApplication.translate("frmDownVideo", u"Agregar", None))
         self.btnCancel.setText(QCoreApplication.translate("frmDownVideo", u"Cancelar", None))
