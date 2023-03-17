@@ -37,6 +37,25 @@ class Qmain:
     def on_load(self):
         """Ejecute when main windows load
         """
+        # *************** videos de pruebas *** BORRAR *******
+        url_a = 'https://rr4---sn-p5qs7nsk.googlevideo.com/videoplayback?expire=1679106956&ei=LM8UZPGoBomX_9EPyqu3kAo&ip=152.207.112.63&id=o-AJtaI54b08gL04tAOfbwc9NiewOKcHq90M5oEtoBtkvj&itag=18&source=youtube&requiressl=yes&mh=pF&mm=31%2C26&mn=sn-p5qs7nsk%2Csn-q4fzen7e&ms=au%2Conr&mv=m&mvi=4&pl=22&initcwndbps=37500&vprv=1&mime=video%2Fmp4&cnr=14&ratebypass=yes&dur=39.682&lmt=1672391663647811&mt=1679084941&fvip=4&fexp=24007246&c=ANDROID&txp=6219224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAIYmTxcouw-drdhW8xZjotAKdCVM75zEk-pJKGHNLcFoAiEA-PSJWJa4XLQZ9nt_JWckMa1IMk80LrAUfCpRI2miVkI%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAMohevLJMhuCNWXSUgWw4Bp_JJcj4U3_rvkbH7q5jV9lAiEAmE6ASL3mtI-Yw9AXQESZrS1nYOZZr3NEoxc3lDwKy6I%3D'
+        url_b = 'https://rr1---sn-ab5sznzk.googlevideo.com/videoplayback?expire=1679107176&ei=CNAUZJGiFOuI_9EPraycmAs&ip=152.206.192.63&id=o-AIgIi1kfxgISL0BRpvk1HfB5dxuoqqaG1NkYTdkr7xC4&itag=18&source=youtube&requiressl=yes&mh=Sy&mm=31%2C29&mn=sn-ab5sznzk%2Csn-ab5l6nk6&ms=au%2Crdu&mv=m&mvi=1&pl=22&initcwndbps=92500&vprv=1&mime=video%2Fmp4&cnr=14&ratebypass=yes&dur=30.069&lmt=1645160442523171&mt=1679085184&fvip=3&fexp=24007246&c=ANDROID&txp=6218224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AOq0QJ8wRQIhALoxIobpQzq50P6OFRXdK_v9C_1SSeinPa7p5YWOWtckAiAfEfY0t4c_Ois2qYlhSKxzAnAtpWChiO2KvJJib7d6zQ%3D%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAPHrAxHjxFSCNcRj49hJlA6h7iLdE6j95O7fffx0qCKcAiEAomobjEAbqnZdwyzxFrF4raW-yKQqUCqD3IZKHIQJPEk%3D'
+        a = VideoObjects(1,('Video 1', 2.6, '00:00:22', '720p', url_a, 'mp4') ,'E:/TEMP')
+        b = VideoObjects(0,('Video 2', 3.8, '00:00:40', '720p', url_b, 'mp4') ,'E:/TEMP')
+        
+        # url_a = 'https://www.egiptoexclusivo.com/wp-content/uploads/2022/08/historia-del-antiguo-egipto.jpg'
+        # url_b = 'https://historia.nationalgeographic.com.es/medio/2018/02/27/paseo-por-egipto__1280x720.jpg'
+        # a = VideoObjects(1,('Foto 1', 2.6, '00:00:22', '720p', url_a, 'jpg') ,'E:\TEMP')
+        # b = VideoObjects(0,('Foto 2', 3.8, '00:00:40', '720p', url_b, 'jpg') ,'E:\TEMP')
+
+        self.table_items.append(b)
+        self.table_items.append(a)
+
+        self.update_table()
+
+        #************************************************
+
+
         # Cargamos la configuracion del json
         with open ('./config.json', 'r') as f:
             config = json.load(f)
@@ -56,10 +75,13 @@ class Qmain:
         # Tamaño de la columna 1
         self.gui.table.setColumnWidth(0, 220)
 
-    def update_table (self):
-        # Limpiamo la tabla
+    def clear_table (self):
         while self.gui.table.rowCount() > 0:
             self.gui.table.removeRow(0)
+
+    def update_table (self):
+        # Limpiamo la tabla
+        self.clear_table()
 
         for item in self.table_items:
             # Insertamos una row debajo de todas
@@ -69,6 +91,10 @@ class Qmain:
             self.gui.table.setItem(item.id, 0, QTableWidgetItem(item.title))
             self.gui.table.setItem(item.id, 1, QTableWidgetItem(str(item.size)+'MB'))
             self.gui.table.item(item.id,1).setTextAlignment(132) # 132 alinea al centro y 130 a la derecha
+            self.gui.table.setItem(item.id, 2, QTableWidgetItem(item.status))
+            self.gui.table.item(item.id,2).setTextAlignment(132) # 132 alinea al centro y 130 a la derecha
+            self.gui.table.setItem(item.id, 3, QTableWidgetItem(''))
+            self.gui.table.setItem(item.id, 4, QTableWidgetItem(''))
 
     def open_config(self):
         """Open download Config dialog"""
@@ -169,12 +195,6 @@ class Qmain:
         dialog.show()
         sys.exit(app2.exec_())
 
-    def trash (self):
-        video = VideoObjects(self.num_item, ('Video Test', 10, '00:00:00', '720', 'htttpmbmdnabmdamnd'), self.ruta)
-        self.num_item += 1
-        self.table_items.append(video)
-        self.update_table()
-
 
     def start_download (self):
         self.downloading = True
@@ -190,7 +210,20 @@ class Qmain:
                     self.id = video.id
                     download = TableDownload(video)
                     self.download_obj = download
-                    download.start()
+                    try:
+                        resultado = download.start()
+                    except Exception as e:
+                        print(e)
+                        self.gui.btnStart.setEnabled(True)
+                        self.table_items[video.id].status = 'Error'
+                        self.update_table()
+                    else:
+                        print(resultado)
+                        self.table_items[video.id].status = resultado[5]
+                        self.update_table()
+            print('Todas las descargas finalizadas')
+            self.downloading = False
+            self.gui.btnStart.setEnabled(True)
 
         t2 = threading.Thread(target=download, daemon=True)
         t2.start()
@@ -227,7 +260,7 @@ class Qmain:
         #[Eventos]
         self.gui.btnVideo.clicked.connect(self.open_dlgVideo)
         self.gui.btnLista.clicked.connect(self.open_dlgList)
-        self.gui.btnTrash.clicked.connect(self.trash)
+        self.gui.btnTrash.clicked.connect(lambda: self.clear_table())
 
         self.gui.btnStart.clicked.connect(self.start_download)
         

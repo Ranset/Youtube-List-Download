@@ -23,7 +23,7 @@ class YouDownload:
         segundos -= minutos*60
         return f"{horas:02d}:{minutos:02d}:{segundos:02d}"    
 
-    def video_info (self, url:str) -> object:
+    def video_info (self, url:str) -> tuple:
         """Return the video info from given url
 
         Args:
@@ -40,7 +40,7 @@ class YouDownload:
             yt = YouTube(url)
         except:
             print('Ah ocurrido un error. Revise la url del video')
-            return ('Ah ocurrido un error. Revise la url del video',None,None,None,None)
+            return ('Ah ocurrido un error. Revise la url del video',None,None,None,None,None)
         else:
             try:
                 
@@ -48,9 +48,9 @@ class YouDownload:
 
                 duration = self.segundos_a_segundos_minutos_y_horas(yt.length)
                 
-            except:
-                print('No se pudo encontrar el video. Revise la conexión')
-                return ('No se pudo encontrar el video. Revise la conexión',None,None,None,None)
+            except Exception as e:
+                print(e)
+                return ('No se pudo encontrar el video. Revise la conexión',None,None,None,None,None)
             else:
 
                 #Alternativa:
@@ -59,19 +59,19 @@ class YouDownload:
                 try:
                     # stream = yt.streams.get_highest_resolution()
                     stream = yt.streams.get_lowest_resolution()
-                except:
-                    print('No se pudo obtener link de descarga')
-                    return ('No se pudo obtener link de descarga',None,None,None,None)
+                except Exception as e:
+                    print(e)
+                    return ('No se pudo obtener link de descarga',None,None,None,None,None)
                 else:
-                    sizeMb = stream.filesize / 1000000
+                    sizeMb = stream.filesize / 1000000 #type: ignore
 
                     size = round(sizeMb,2)
 
-                    resolution = stream.resolution
+                    resolution = stream.resolution #type: ignore
 
-                    dwld_url = stream.url
+                    dwld_url = stream.url #type: ignore
 
-                    return (title, size, duration, resolution, dwld_url, stream.subtype)
+                    return (title, size, duration, resolution, dwld_url, stream.subtype) #type: ignore
     
 class VideoObjects:
     def __init__(self, id: int, video: tuple, path: str) -> None:
@@ -80,7 +80,7 @@ class VideoObjects:
         self.duration = video[2]
         self.resolution = video[3]
         self.dwld_url = video[4]
-        self.status = ''
+        self.status = ' '
         self.id = id
         self.path = path
         self.extension = video[5]
@@ -92,7 +92,7 @@ class TableDownload:
         self.download_info = [video_item.id, "0%", '0', '0', '0', '']
         self.downloading = False
 
-    def _rename(self, old:str, dest:str, filename:str, extention:str):
+    def _rename(self, old:str, dest:str, filename:str, extention:str) -> None:
         new = dest + filename + '.' + extention
         try:
             os.rename(old, new)
@@ -102,7 +102,7 @@ class TableDownload:
 
             print(new)
 
-    def _clearString (self, string:str):
+    def _clearString (self, string:str) -> str:
         regex = re.compile('[^0-9a-zA-Z&¡!{()}#$@,.óáéíñúüÁÉÍÓÚÜÑ]+')
         s = regex.sub(' ', string)
         return s
@@ -136,11 +136,8 @@ class TableDownload:
 
         else:
             print("Hubo un error durante la descrga:")
+            self.download_info[5] = 'Error'
             for e in obj.get_errors():
                 print(str(e))
-    
 
-if __name__ == "__main__":
-    obj = YouDownload()
-    result = obj.video_info('https://www.youtube.com/watch?v=V1WW1n0tEVM')
-    print(result[0])
+        return self.download_info
